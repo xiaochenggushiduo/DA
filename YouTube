@@ -1,0 +1,102 @@
+下载安装所需软件
+
+Step1 下载与安装Python
+
+1.访问Python官网下载最新版本的Python
+Python官网
+
+2.安装Python 3.5.2,注意勾选下面的Add Python 3.5 to PATH
+安装Python
+3.按Win+R键打开运行，输入cmd，再输入python并回车执行，如果出现如下界面，则代表安装成功
+Python
+Step2 安装youtube-dl
+
+方式一 下载Windows exe程序使用
+从官网下载youtube-dl.exe然后放在电脑的任意目录下(比如我这里的C:\Users\LOLO)即可使用;可以通过下面的命令来更新youtube-dl
+youtube-dl -U
+方式二 直接使用命令行来安装
+在安装了Python之后,按Win+R键打开运行，输入cmd，再输入下面的代码即可自动下载安装youtube-dl
+pip install youtube-dl //直接安装youtube-dl
+pip install --upgrade youtube-dl //安装youtube-dl并更新
+安装完之后,输入youtube-dl,如果出现下面的提示,则表明youtube-dl已经安装好啦
+youtube-dl
+Step3 安装ffmpeg
+
+FFmpeg是一套可以用来记录、转换数字音频、视频，并能将其转化为流的开源计算机程序。它提供了录制、转换以及流化音视频的完整解决方案。它包含了非常先进的音频/视频编解码库libavcodec
+1.进入FFmpeg官网,进入下载页面,根据自己的操作系统选择下载最新的32位或64位静态程序版本
+
+FFmpeg 64-bit Static
+2.下载之后解压出来,将会看到这么一堆文件夹
+
+FFmpeg
+不用管它,直接把这个文件夹改个名字改成"ffmpeg"然后移到C盘根目录
+
+FFmpeg
+3.打开系统属性>高级系统设置>环境变量
+
+环境变量
+4.在环境变量>系统变量 里找到Path,点击编辑>新建,然后把刚才那个文件夹里的bin路径(C:\ffmpeg\bin)复制到这里
+
+添加Path
+5.打开Win+R,输入cmd,回车,输入以下命令:
+
+ffmpeg -version
+如果出现如下图所示的版本号信息,则表明FFmpeg安装成功了，你可以在命令提示行中任意文件夹下运行FFmpeg
+
+
+FFmpeg版本
+准备科学上网环境
+
+由于YouTube在国内被墙,需要搭梯子才能访问;使用youtube-dl这样的下载工具当然也是需要梯子才能下载YouTube视频的;我用的是SS,买的半年套餐,这家线路质量很好,速度很快;如果你用的是其他的VPN,理论上只要是系统代理的就都能使用youtube-dl下载国外视频(浏览器的科学上网插件不在此列)
+建议使用SS的童鞋可以在下载国外视频之前将系统代理模式改成"全局模式",这样使用youtube-dl下载视频就不需要考虑代理了;
+
+SS全局代理模式
+注意 如果你不想用全局模式,那么后文提到的命令都需要加上这样的代理设置
+--proxy "https://127.0.0.1:1080"
+下载YouTube视频
+
+查看视频所有类型,只看不下载
+youtube-dl -F [url]
+或者
+youtube-dl --list-formats [url]
+这是一个列清单参数，执行后并不会下载视频，但能知道这个目标视频都有哪些格式存在，这样就可以有选择的下载啦！
+查看YouTube视频所有类型
+下载指定质量的视频和音频并自动合并
+youtube-dl -f [format code] [url]
+通过上一步获取到了所有视频格式的清单，最左边一列就是编号对应着不同的格式.
+由于YouTube的1080p及以上的分辨率都是音视频分离的,所以我们需要分别下载视频和音频,可以使用137+140这样的组合.
+如果系统中安装了ffmpeg的话, youtube-dl 会自动合并下下好的视频和音频, 然后自动删除单独的音视频文件
+下载1080p的视频
+下载字幕
+youtubd-dl --write-sub [url] //这样会下载一个vtt格式的英文字幕和mkv格式的1080p视频下来
+
+youtube-dl --write-sub --skip-download [url] //下载单独的vtt字幕文件,而不会下载视频
+
+youtube-dl --write-sub --all-subs [url] //下载所有语言的字幕(如果有的话)
+
+youtube-dl --write-auto-sub [url] //下载自动生成的字幕(YouTube only)
+下载字幕和视频
+下载视频列表
+youtube-dl -f [format code] [palylist_url] //这种方式可以下载制定清晰度的mp4视频
+
+youtube-dl [playlist_url] //下载视频列表,这种方式下载的视频可能是mkv格式或者webm格式
+
+youtube-dl -cit [playlist_url] //下载视频列表,这种方式下载的视频可能是mkv格式或者webm格式
+
+youtube-dl --yes-playlist [url] //当链接为视频列表,则下载该列表视频,跟上面的一样,可能是mkv或者webm格式
+下载Vimeo视频
+
+Vimeo的视频下载起来比较方便,因为没有分离,可以直接下载1080p带音频的视频
+命令与下载YouTube的基本一致;下面贴几张图
+
+解查看Vimeo视频所有类型
+直接下载Vimeo最高质量视频
+youtube-dl支持的网站很多,大家可以从作者整理的这个列表里查看支持的网站(不过由于有的网站接口改变,可能当初支持的网站现在不能很好的支持了),如果您要下载的视频网站现在不能用youtube-dl下载的,不妨试试另外一个同样基于Python开发的下载工具You-Get,我将在下一篇文章中介绍,希望大家喜欢~
+
+youtube-dl官网：https://yt-dl.org/
+GitHub项目：https://github.com/rg3/youtube-dl/
+
+作者：江南之恋
+链接：https://www.jianshu.com/p/8817a7b0c8d6
+來源：简书
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
